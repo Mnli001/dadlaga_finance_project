@@ -15,7 +15,7 @@
     "wdth" 100;
 }
 
-body {
+#index {
   background-color: antiquewhite;
   height: 100vh;
   display: flex;
