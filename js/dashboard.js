@@ -1,5 +1,14 @@
 import { supabase } from './supabase.js';
 
+const BADGES = [
+    { name: 'Баатар', icon: 'fa-shield-halved', color: '#cd7f32', min: 1_000_000 },
+    { name: 'Түшмэл', icon: 'fa-scroll',        color: '#78909c', min: 5_000_000 },
+    { name: 'Тайж',   icon: 'fa-chess-knight',  color: '#90a4ae', min: 10_000_000 },
+    { name: 'Ноён',   icon: 'fa-chess-king',    color: '#ffc107', min: 25_000_000 },
+    { name: 'Ван',    icon: 'fa-crown',         color: '#ff9800', min: 50_000_000 },
+    { name: 'Хаан',   icon: 'fa-dragon',        color: '#7c3aed', min: 100_000_000 },
+];
+
 const transactionForm = document.getElementById('transaction-form');
 const txTypeInput = document.getElementById('tx-type');
 const txCategoryInput = document.getElementById('tx-category');
@@ -135,6 +144,12 @@ async function fetchTransactions() {
     document.getElementById('total-balance').textContent = `${totalBalance.toLocaleString()} ₮`;
     document.getElementById('total-income').textContent = `${totalIncome.toLocaleString()} ₮`;
     document.getElementById('total-expense').textContent = `${totalExpense.toLocaleString()} ₮`;
+
+    const currentBadge = BADGES.slice().reverse().find(b => totalBalance >= b.min) ?? null;
+    const badgeEl = document.getElementById('user-badge');
+    badgeEl.innerHTML = currentBadge
+        ? `<i class="fa-solid ${currentBadge.icon}" style="color:${currentBadge.color};" title="${currentBadge.name}"></i>`
+        : '';
 
     renderTransactions(transactions);
 }
