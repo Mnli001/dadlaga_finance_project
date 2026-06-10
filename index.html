@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Нэвтрэх | Санхүүгийн самбар</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="roboto-regular">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5 absolute">
-                <div class="card shadow-sm p-4 rounded-4">
-                    <div class="card-body">
-                        <h3 class="card-title text-center mb-4 fw-bold text-success"><i class="fa-brands fa-cash-app text-warning"></i>Хувийн санхүүгийн бүртгэл</h3>
-                        <p class="text-muted text-center small mb-4">Нэвтрэх эсвэл шинээр бүртгүүлэх</p>
-                            <form id="auth-form">
-                                <div class="mb-3">
-                                    <label class="form-label small fw-semibold">Имайл хаяг</label>
-                                    <input type="email" class="form-control form-control-lg" id="email" required placeholder="name@gmail.com"></label>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label small fw-semibold">Нууц үг</label>
-                                    <input type="password" class="form-control form-control-lg absolute" id="password" required placeholder="********"></label>
-                                </div>
-                                <div class="d-grid gap-2">
-                                    <button type="submit" id="btn-login" class="btn btn-success btn-lg fw-semibold">Нэвтрэх</button>
-                                    <button type="button" id="btn-register" class="btn btn-outline-secondary">Шинээр бүртгүүлэх</button>
+<body class="roboto-regular login-page">
 
-                                </div>
-                            </form>
-                            <div id="message" class="text-danger text-center small mt-3 fw-medium"></div>
-                        </div>
-                    </div>
-                </div> 
-            </div>
+    <div class="login-card">
+        <div class="brand-icon">
+            <i class="fa-solid fa-sack-dollar" style="color: #ffc107;"></i>
         </div>
+        <h4 class="text-white fw-bold text-center mb-1">Хувийн санхүүгийн бүртгэл</h4>
+        <p class="text-center mb-4" style="color: rgba(255,255,255,0.4); font-size: 0.85rem;">Нэвтрэх эсвэл шинээр бүртгүүлэх</p>
+
+        <form id="auth-form">
+            <div class="mb-3">
+                <label class="form-label">Имайл хаяг</label>
+                <input type="email" class="form-control form-control-lg" id="email" required placeholder="name@gmail.com">
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Нууц үг</label>
+                <input type="password" class="form-control form-control-lg" id="password" required placeholder="••••••••">
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-login" class="btn btn-login btn-lg">Нэвтрэх</button>
+                <button type="button" id="btn-register" class="btn btn-register">Шинээр бүртгүүлэх</button>
+            </div>
+        </form>
+
+        <div id="message" class="text-center small mt-3 fw-medium" style="color: #f87171;"></div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/3fd870c410.js" crossorigin="anonymous"></script>
     <script type="module" src="js/auth.js"></script>

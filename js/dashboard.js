@@ -113,6 +113,7 @@ transactionForm.addEventListener('submit', async (e) => {
         alert("Гүйлгээ амжилттай бүртгэгдлээ!");
         transactionForm.reset();
         await fetchTransactions();
+        await fetchBudgets();
     }
 });
 
@@ -205,6 +206,7 @@ window.deleteTransaction = async function(id) {
 
     alert("Гүйлгээ амжилттай устгагдлаа.");
     await fetchTransactions();
+    await fetchBudgets();
 };
 
 // --- Төсөв ---
@@ -257,10 +259,23 @@ async function fetchBudgets() {
         return;
     }
 
-    renderBudgets(budgets);
+    const { data: expenses } = await supabase
+        .from('transactions')
+        .select('category, amount, date')
+        .eq('user_id', user.id)
+        .eq('type', 'expense');
+
+    const spentMap = {};
+    expenses?.forEach(tx => {
+        const month = tx.date?.substring(0, 7);
+        const key = `${tx.category}__${month}`;
+        spentMap[key] = (spentMap[key] ?? 0) + tx.amount;
+    });
+
+    renderBudgets(budgets, spentMap);
 }
 
-function renderBudgets(budgets) {
+function renderBudgets(budgets, spentMap = {}) {
     const container = document.getElementById('current-budgets-list');
 
     if (budgets.length === 0) {
@@ -275,20 +290,40 @@ function renderBudgets(budgets) {
 
     container.innerHTML = `
         <h6 class="fw-bold text-dark mb-3">Одоогийн тогтоосон төсвүүд:</h6>
-        ${budgets.map(b => `
-            <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2 bg-light">
-                <div>
-                    <span class="fw-medium">${b.category}</span>
-                    <span class="text-muted small ms-2">${b.month_year}</span>
+        ${budgets.map(b => {
+            const spent = spentMap[`${b.category}__${b.month_year}`] ?? 0;
+            const pct = Math.round((spent / b.limit_amount) * 100);
+            const over = pct > 100;
+            const barColor = over ? '#dc3545' : (pct >= 80 ? '#fd7e14' : '#198754');
+            const displayPct = over ? pct : Math.min(pct, 100);
+
+            return `
+            <div class="border rounded p-2 mb-2 bg-light">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div>
+                        <span class="fw-medium">${b.category}</span>
+                        <span class="text-muted small ms-2">${b.month_year}</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="small ${over ? 'text-danger fw-bold' : 'text-muted'}">
+                            ${spent.toLocaleString()} / ${b.limit_amount.toLocaleString()} ₮
+                        </span>
+                        <button class="btn btn-sm btn-link text-danger p-0" onclick="deleteBudget('${b.id}')">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center gap-2">
-                    <span class="fw-bold text-primary">${b.limit_amount.toLocaleString()} ₮</span>
-                    <button class="btn btn-sm btn-link text-danger p-0" onclick="deleteBudget('${b.id}')">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
+                    <div class="flex-grow-1" style="background:#e9ecef; border-radius:4px; height:6px; overflow:visible;">
+                        <div style="width:${Math.min(displayPct, 100)}%; background:${barColor}; height:6px; border-radius:4px; transition:width 0.3s;"></div>
+                    </div>
+                    <span class="small fw-bold" style="color:${barColor}; min-width:38px; text-align:right;">
+                        ${over ? `${pct}%` : `${pct}%`}
+                    </span>
                 </div>
+                ${over ? `<p class="text-danger small mb-0 mt-1"><i class="fa-solid fa-triangle-exclamation me-1"></i>Төсөв хэтэрсэн</p>` : ''}
             </div>
-        `).join('')}
+        `}).join('')}
     `;
 }
 
