@@ -17,83 +17,89 @@
 
 .login-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+    background: #f1f5f9;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
+    background: #fff;
+    border-radius: 16px;
     padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
-.login-card .form-control {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #fff;
-    border-radius: 10px;
+.login-brand-icon {
+    font-size: 1.4rem;
+    color: #ffc107;
 }
 
-.login-card .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+.login-title {
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
 }
 
-.login-card .form-control:focus {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.35);
-    color: #fff;
+.login-sub {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.login-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.4rem;
+}
+
+.login-input {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    color: #0f172a;
+}
+
+.login-input:focus {
+    border-color: #0f172a;
     box-shadow: none;
 }
 
-.login-card .form-label {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 0.85rem;
-}
-
-.btn-login {
-    background: #212529;
-    border: none;
-    border-radius: 10px;
+.login-btn-primary {
+    background: #0f172a;
     color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem;
     font-weight: 600;
-    padding: 0.75rem;
     transition: background 0.2s;
 }
 
-.btn-login:hover {
-    background: #343a40;
+.login-btn-primary:hover {
+    background: #1e293b;
     color: #fff;
 }
 
-.btn-register {
+.login-btn-secondary {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 500;
-    padding: 0.65rem;
+    color: #64748b;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.6rem;
+    font-size: 0.9rem;
     transition: all 0.2s;
 }
 
-.btn-register:hover {
-    border-color: rgba(255, 255, 255, 0.45);
-    color: #fff;
+.login-btn-secondary:hover {
+    border-color: #94a3b8;
+    color: #0f172a;
 }
 
-.brand-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    margin: 0 auto 1.2rem;
+.login-message {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #ef4444;
+    margin-top: 0.75rem;
+    min-height: 1.2rem;
 }

@@ -402,7 +402,7 @@ document.getElementById('offcanvasBadge').addEventListener('show.bs.offcanvas', 
 // --- Гарах ---
 
 btnLogout.addEventListener('click', async () => {
-    if (!confirm("Та системээс гарахдаа итгэлтэй байна уу?")) return;
+    if (!confirm("Та үнэхээр системээс гарахдаа итгэлтэй байна уу?")) return;
 
     const { error } = await supabase.auth.signOut();
 
