@@ -14,9 +14,9 @@
                 <i class="fa-solid fa-sack-dollar test-warning"></i>Санхүүгийн самбар
             </a>
             <div class="d-flex align-items-center gap-3">
-                <a href="badges.html" class="btn btn-sm btn-outline-warning fw-bold">
+                <button class="btn btn-sm btn-outline-warning fw-bold" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBadge">
                     <i class="fa-solid fa-medal me-1"></i>Медал
-                </a>
+                </button>
                 <button class="btn btn-sm btn-outline-primary fw-bold text-white border-primary-subtle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBudget">Төсөв тогтоох</button>
 
                 <span id="user-badge" class="fs-5" title="Таны медал"></span>
@@ -167,6 +167,20 @@
                 <div class="text-center py-3 text-muted small bg-light rounded">
                     Одоогоор төсөв тогтоогоогүй байна.
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasBadge" aria-labelledby="offcanvasBadgeLabel">
+        <div class="offcanvas-header bg-dark text-white">
+            <h5 class="offcanvas-title fw-bold" id="offcanvasBadgeLabel">
+                <i class="fa-solid fa-medal me-2" style="color:#ffc107;"></i>Медалын самбар
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-4" id="offcanvas-badge-body">
+            <div class="text-center text-muted py-5">
+                <span class="spinner-border spinner-border-sm me-2"></span>Уншиж байна...
             </div>
         </div>
     </div>

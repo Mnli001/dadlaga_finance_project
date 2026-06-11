@@ -340,6 +340,65 @@ window.deleteBudget = async function(id) {
     await fetchBudgets();
 };
 
+// --- Медал ---
+
+document.getElementById('offcanvasBadge').addEventListener('show.bs.offcanvas', async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: txs } = await supabase
+        .from('transactions')
+        .select('type, amount')
+        .eq('user_id', user.id);
+
+    let income = 0, expense = 0;
+    txs?.forEach(tx => tx.type === 'income' ? income += tx.amount : expense += tx.amount);
+    const balance = income - expense;
+
+    const currentIdx = BADGES.reduce((best, b, i) => balance >= b.min ? i : best, -1);
+
+    const body = document.getElementById('offcanvas-badge-body');
+    body.innerHTML = BADGES.map((b, i) => {
+        const earned = balance >= b.min;
+        const isCurrent = i === currentIdx;
+
+        const rowStyle = isCurrent
+            ? `border: 2px solid ${b.color}; box-shadow: 0 4px 20px ${b.shadow ?? b.color+'33'};`
+            : 'border: 2px solid #e9ecef;';
+        const opacity = (!earned && !isCurrent) ? 'opacity:0.45; filter:grayscale(1);' : '';
+
+        const statusBadge = isCurrent
+            ? `<span class="status-badge" style="background:${b.color}; color:#fff;">Одоогийн</span>`
+            : earned
+                ? `<span class="status-badge" style="background:#d1fae5; color:#065f46;">Нээлттэй</span>`
+                : `<span class="status-badge" style="background:#f1f5f9; color:#94a3b8;">Түгжигдсэн</span>`;
+
+        const rightIcon = isCurrent
+            ? `<i class="fa-solid fa-star ms-2" style="color:${b.color}; font-size:1.1rem;"></i>`
+            : earned
+                ? `<i class="fa-solid fa-circle-check ms-2 text-success" style="font-size:1.1rem;"></i>`
+                : `<i class="fa-solid fa-lock ms-2 text-secondary" style="font-size:1rem; opacity:0.5;"></i>`;
+
+        return `
+            <div style="display:flex; align-items:center; border-radius:14px; padding:14px 18px; margin-bottom:10px; background:white; ${rowStyle} ${opacity}">
+                <div style="width:52px; height:52px; border-radius:50%; background:${b.bg}; color:${b.color}; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; margin-right:14px;">
+                    <i class="fa-solid ${b.icon}"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-center flex-wrap gap-2 mb-1">
+                        <span style="font-size:1rem; font-weight:700; color:#1e293b;">${b.name}</span>
+                        ${statusBadge}
+                    </div>
+                    <p class="text-muted mb-0" style="font-size:0.8rem;">
+                        <i class="fa-solid fa-coins me-1"></i>${(b.min / 1_000_000).toFixed(0)} сая ₮-с дээш
+                    </p>
+                </div>
+                ${rightIcon}
+            </div>
+        `;
+    }).join('');
+});
+
 // --- Гарах ---
 
 btnLogout.addEventListener('click', async () => {
