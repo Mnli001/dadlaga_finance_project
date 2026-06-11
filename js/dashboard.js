@@ -1,12 +1,12 @@
 import { supabase } from './supabase.js';
 
 const BADGES = [
-    { name: 'Баатар', icon: 'fa-shield-halved', color: '#cd7f32', min: 1_000_000 },
-    { name: 'Түшмэл', icon: 'fa-scroll',        color: '#78909c', min: 5_000_000 },
-    { name: 'Тайж',   icon: 'fa-chess-knight',  color: '#90a4ae', min: 10_000_000 },
-    { name: 'Ноён',   icon: 'fa-chess-king',    color: '#ffc107', min: 25_000_000 },
-    { name: 'Ван',    icon: 'fa-crown',         color: '#ff9800', min: 50_000_000 },
-    { name: 'Хаан',   icon: 'fa-dragon',        color: '#7c3aed', min: 100_000_000 },
+    { name: 'Баатар', icon: 'fa-shield-halved', color: '#cd7f32', min: 1_000_000,   bg: 'rgba(205,127,50,0.15)' },
+    { name: 'Түшмэл', icon: 'fa-scroll',        color: '#78909c', min: 5_000_000,   bg: 'rgba(120,144,156,0.15)' },
+    { name: 'Тайж',   icon: 'fa-gem',           color: '#26c6da', min: 10_000_000,  bg: 'rgba(38,198,218,0.15)' },
+    { name: 'Ноён',   icon: 'fa-chess-knight',  color: '#66bb6a', min: 25_000_000,  bg: 'rgba(102,187,106,0.15)' },
+    { name: 'Ван',    icon: 'fa-chess-king',    color: '#ff9800', min: 50_000_000,  bg: 'rgba(255,152,0,0.15)' },
+    { name: 'Хаан',   icon: 'fa-crown',         color: '#ffc107', min: 100_000_000, bg: 'rgba(255,193,7,0.15)' },
 ];
 
 const transactionForm = document.getElementById('transaction-form');
